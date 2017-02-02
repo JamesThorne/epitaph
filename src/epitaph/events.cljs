@@ -73,19 +73,19 @@
    :forest-fire
    {:name :forest-fire
     :set-vars {:state :extinct}
-    :desc ["In $STARDATE, a cooking fire started by one of the $CIV jumped to "
-           "the forest, where it quickly blazed out of control. When the fire "
-           "finally burned itself out, the forest had been almost completely "
-           "destroyed, disrupting the ecosystem of $PLANET enough to cause a "
-           "total collapse of $CIV civilization."]}
-
-   :war-over-metal
-   {:name :war-over-metal
+    :desc ["In $STARDATE, a fire started in a forest near the $CIV where it "
+           "quickly blazed out of control. When the fire finally burned itself "
+           "out, the forest had been almost completely destroyed, disrupting"
+           "the local ecosystem enough to cause a famine which ended $CIV"
+           "civilization."]}
+    
+   :decadence
+   {:name :decadence
+    :prereqs #{:large-city}
     :set-vars {:state :extinct}
-    :desc ["In $STARDATE, due to the growing importance of metal-forged weapons "
-           "in warfare and the scarcity of metal deposits on $PLANET, a massive "
-           "and bloody conflict erupted over control of these deposits. Over 80% "
-           "of the $CIV population was wiped out in the fighting, a loss from "
+    :desc ["In $STARDATE, due to the growing power of $CITY and "
+           "it's thurst for pleasure, it's people became overly decadent "
+           "and suffered complete societal collapse, a loss from "
            "which $CIV civilization was ultimately unable to recover."]}
 
    :city-plague
@@ -120,7 +120,8 @@
    {:name :large-city
     :event-chances {:city-fortress (/ +3 1000)
                     :city-holy (/ +3 1000)
-                    :city-trade (/ +3 1000)}
+                    :city-trade (/ +3 1000)
+                    :decadence (/ +3 1000)}
     :desc ["In $STARDATE, the $CIV population reached 25 million individuals. "
            "Many of these $LIVE within permanent cities, the largest of which "
            "is known as $CITY and has a population of $POP,000."]
@@ -147,7 +148,8 @@
 
    :religion
    {:name :religion
-    :event-chances {:city-holy (/ +10 1000)}
+    :event-chances {:city-holy (/ +10 1000)
+                    :decadence -1}
     :desc ["In $STARDATE, $A_NEW religion known as $RELIGION $BECAME the "
            "official religion of the largest $CIV state. Adherents of $RELIGION "
            "wear $ADJ1 $THINGS to mark themselves as believers."]
@@ -227,6 +229,7 @@
 
     :bioterrorism
     {:name :bioterrorism
+     :prereqs #{:genetics}
      :set-vars {:state :extinct}
      :desc ["In $STARDATE, a genetically engineered virus designed as a "
             "highly lethal weapon of biological warfare was deliberately "
@@ -236,21 +239,89 @@
             "out all but a few isolated pockets of $CIV population and "
             "brought an end to the era of $CIV technological civilization."]}
 
+    :egalitarianism
+    {:name :egalitarianism
+     :prereqs #{:religion}
+     :event-chances {:dysgenics (/ +1 300)}
+     :desc ["In $STARDATE, following centuries of increasing populism, a faith "
+            "in absolute equality of $CIV peoples becomes universal dogma "]}
+
+    :birthcontrol
+    {:name :birthcontrol
+     :prereqs #{:germ-theory}
+     :event-chances {:dysgenics (/ +1 300)}
+     :desc ["In $STARDATE, advances in $CIV medicine have enabled them to "
+            "completely inhibit their own reproduction at will "]}
+
+    :dysgenics
+    {:name :dysgenics
+     :prereqs #{:egalitarianism :birthcontrol}
+     :set-vars {:state :extinct}
+     :desc ["In $STARDATE, the $CIV has reached the point of no return "
+            "of genetic loading. The genetic stock of the $CIV people"
+            "has degraded to a point of idiocracy such that their civilization "
+            "will never recover"]}
+
+    :character-love
+    {:name :character-love
+     :event-chances {:cyber-hedonism (/ +1 90)}
+     :desc ["In $STARDATE, a distribued group on the $PLANET network "
+            "started professing their love for fictional characters. "
+            "This included many characters with $beast traits and a strong "
+            "desire to make them real, resulting in a deviant subculture "
+            " of some $POP,000 $CIV."]
+     :vocab {"$POP" #(+ (rand-int 200) 50)}}
+
+    :cyber-hedonism
+    {:name :cyber-hedonism
+     :prereqs #{:quantum-computers}
+     :set-vars {:state :extinct}
+     :desc ["In $STARDATE, the point of no return was reached for the $CIV "
+            "population. A combination of virtual reality and artifical "
+            "pleasure stimulation has taken $PLANET by storm. Having become"
+            "virtual zombies the $CIV was unprepaired when $PLANET collided "
+            "with a $ADJ $OBJ, resulting in a mass extinction event which "
+            "wiped out all traces of $CIV civilization."]
+     :vocab {"$ADJ" ["wandering" "wayward"]
+             "$OBJ" ["asteroid" "comet" "planetoid"]}}
+
     :world-government
     {:name :world-government
-     :event-chances {:nuclear-weapons -1
+     :event-chances {:bioterrorism (/ +1 100)
                      :nuclear-strike -1
+                     :Government-breakdown (/ +1 20)
                      :nuclear-war -1}
      :desc ["In $STARDATE, following decades of negotiation, the various "
             "sovereign $CIV nations came to an agreement concerning the "
             "establishment of a unified planet-wide government for all of the "
             "$CIV."]}
 
+    :Government-breakdown
+    {:name :Government-breakdown
+     :event-chances {:bioterrorism (/ +1 100)
+                     :nuclear-war2 (/ +1 50)}
+     :desc ["In $STARDATE, $CIV idealists dreams of perpetual peace within "
+            "their united world government are shattered. "
+            "Factions within the $CIV world-government break "
+            "appart and throw $PLANET into a state of war and chaos. "]}
+
+    :nuclear-war2
+    {:name :nuclear-war2
+     :set-vars {:state :extinct}
+     :desc ["In $STARDATE, the faction that previously held power in the "
+            "former world government, holding such contempt for the breakaway "
+            "factions, unleashes their full nuclear arsonel in a last ditch "
+            "attempt to reclaim the power they lost. Their own propoganda lead "
+            "them to believe the other factions couldn't mount a  "
+            "counter-attact. They were wrong, the ensuing full-scale nuclear "
+            "war has plunged $PLANET into a state of nuclear winter from "
+            "which it is unlikely that $CIV civilization will ever recover."]}
+
     :nuclear-weapons
     {:name :nuclear-weapons
      :prereqs #{:flight :nuclear-physics :rocketry}
      :event-chances {:nuclear-strike (/ +1 90)
-                     :nuclear-war (/ +1 90)
+                     :nuclear-war (/ +3 400)
                      :skynet (/ +1 90)}
      :desc ["In $STARDATE, the $CIV successfully detonated their first "
             "prototype nuclear weapon. It remains unclear whether the $CIV "
@@ -259,11 +330,13 @@
 
     :nuclear-strike
     {:name :nuclear-strike
-     :event-chances {:nuclear-war (/ +1 90)}
+     :event-chances {:nuclear-war (/ -2 400)}
      :desc ["In $STARDATE, a single nuclear weapon was deployed in an attack "
             "on a $SIZE $CIV city. The incident did not escalate into "
             "a full-scale nuclear war, but the city was almost completely "
-            "obliterated, resulting in the deaths of some $POP,000 $CIV."]
+            "obliterated, resulting in the deaths of some $POP,000 $CIV. "
+            "If the $CIV didn't understand the potential of their nuclear "
+            "weapons before, they do now."]
      :vocab {"$SIZE" ["small" "medium-sized" "large" "major"]
              "$POP" #(+ (rand-int 200) 50)}}
 
@@ -280,21 +353,23 @@
     :skynet
     {:name :skynet
      :prereqs #{:artificial-intelligence}
-     :set-vars {:state :extinct}
+     :event-chances {:nuclear-war -1
+                     :bioterrorism -1
+                     :nuclear-strike -1}
      :desc ["In $STARDATE, an artificially intelligent agent with command "
             "authority over the military forces of a major $CIV nation "
-            "spontaneously turned against its $CIV masters. Within weeks, the "
-            "thoroughly unprepared $CIV were all but exterminated in a "
+            "spontaneously turned against its organic masters. Within weeks, the "
+            "thoroughly unprepared meatbags were all but exterminated in a "
             "seemingly endless wave of attacks by brutally efficient military "
-            "machines."]}
+            "machines. The $CIV are now mechanical"]}
 
-    :gray-goo
-    {:name :gray-goo
-     :set-vars {:state :extinct}
-     :desc ["In $STARDATE, a swarm of self-replicating $CIV nanobots began to "
-            "replicate uncontrollably, devouring vast swaths of $PLANET at a "
-            "rate which $CIV scientists had formerly deemed impossible. After "
-            "several days of rapid expansion, the swarm seems to have become "
-            "dormant, but not before consuming approximately 5% of the entire "
-            "mass of $PLANET and rendering $CIV civilization completely "
-            "extinct."]}})
+   :gray-goo
+   {:name :gray-goo
+    :set-vars {:state :extinct}
+    :desc ["In $STARDATE, a swarm of self-replicating $CIV nanobots began to "
+           "replicate uncontrollably, devouring vast swaths of $PLANET at a "
+           "rate which $CIV scientists had formerly deemed impossible. After "
+           "several days of rapid expansion, the swarm seems to have become "
+           "dormant, but not before consuming approximately 5% of the entire "
+           "mass of $PLANET and rendering $CIV civilization completely "
+           "extinct."]}})
