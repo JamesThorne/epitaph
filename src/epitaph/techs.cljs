@@ -52,7 +52,7 @@
 
    {:name :writing
     :set-vars {:tech-chance (/ 1 60)}
-    :event-chances {:war-over-metal (/ -1 1000)
+    :event-chances {:decadence (/ -1 1000)
                     :conqueror (/ +3 1000)
                     :religion (/ +1 1000)}
     :desc ["The $CIV have developed a simple system of writing, which they use "
@@ -61,9 +61,9 @@
 
    {:name :astronomy
     :event-chances {:religion (/ +1 1000)}
-    :desc ["The $CIV have begun to watch the skies and recognize patterns in "
+    :desc ["The $CIV have begun to watch the heavens and recognize patterns in "
            "the movements of stars, which they use to navigate over great "
-           "distances and keep track of time."]}
+           "distances, keep track of time and communicate traditions."]}
 
    {:name :fire
     :prereqs #{:toolmaking}
@@ -77,8 +77,7 @@
 
    {:name :metalworking
     :prereqs #{:fire}
-    :event-chances {:war-over-metal (/ +3 1000)
-                    :conqueror (/ +4 1000)}
+    :event-chances {:conqueror (/ +4 1000)}
     :desc ["The $CIV have discovered how to forge molten metal into jewelry, "
            "tools, weapons, and armor."]}
 
@@ -86,10 +85,12 @@
     :prereqs #{:toolmaking :agriculture}
     :event-chances {:large-city (/ +1 1000)
                     :city-plague (/ +2.5 1000)
-                    :war-over-metal (/ -1 1000)
+                    :gamma-ray-burst (/ -99 300000)
+                    :volcano (/ -99 100000)
+                    :asteroid (/ -99 100000)
                     :forest-fire (/ -2 1000)
                     :conqueror (/ +2 1000)
-                    :pets (/ +1 1000)
+                    :pets (/ +1 1000)                    
                     :religion (/ +3 1000)}
     :desc ["The $CIV have begun to construct permanent dwellings and other "
            "structures$USING $MAT as a building material."]
@@ -109,7 +110,7 @@
     :prereqs #{:astronomy :construction}
     :event-chances {:sea-plague (/ +2 1000)
                     :large-city (/ +1 1000)
-                    :war-over-metal (/ -2 1000)
+                    :decadence (/ -2 1000)
                     :city-trade (/ +7 1000)}
     :desc ["The $CIV have learned how to build ships and sail them across the "
            "oceans of $PLANET to explore and trade over increasingly greater "
@@ -158,6 +159,7 @@
 
    {:name :the-printing-press
     :prereqs #{:architecture :metalworking}
+    :event-chances {:egalitarianism (/ +1 360)}
     :set-vars {:tech-chance (/ 1 30)}
     :desc ["The $CIV have developed a simple printing press, and mass-produced "
            "versions of important texts have begun to circulate widely "
@@ -231,7 +233,8 @@
    {:name :germ-theory
     :prereqs #{:calculus :taxonomy}
     :event-chances {:city-plague (/ -1 1000)
-                    :sea-plague (/ -1 1000)}
+                    :sea-plague (/ -1 1000)
+                    :birth-control (/ +1 100)}
     :desc ["$THE $IDEA that diseases $ARE caused by microorganisms has begun "
            "to catch on among the $CIV, leading to the widespread adoption of "
            "public health policies which have greatly reduced the spread of "
@@ -272,7 +275,7 @@
 
    {:name :spaceflight
     :prereqs #{:digital-computers :flight :rocketry}
-    :event-chances {:asteroid (/ -1 2000)}
+    :event-chances {:asteroid (/ -1 200000)}
     :desc ["The $CIV have taken their first tentative steps into space, "
            "launching craft capable of supporting several individuals into "
            "orbit around $PLANET before retrieving them safely."]}
@@ -280,7 +283,8 @@
    {:name :networked-computers
     :prereqs #{:digital-computers :mass-media}
     :set-vars {:tech-chance (/ 1 20)}
-    :event-chances {:world-government (/ +1 90)}
+    :event-chances {:world-government (/ +1 90)
+                    :character-love(/ +1 90)}
     :desc ["The $CIV have begun to connect their computers into a single vast "
            "network, enabling communication and collaboration on a truly "
            "global scale."]}
@@ -301,13 +305,13 @@
     :prereqs #{:nanotechnology :networked-computers :spaceflight}
     :event-chances {:asteroid -1
                     :volcano -1
-                    :world-government (/ +2 90)}
+                    :world-government -1}
     :desc ["The $CIV have begun to establish permanent colonies on worlds "
            "other than $PLANET. Although still largely unable to travel "
            "outside of the $SYSTEM system, the distribution of $CIV "
-           "civilization across multiple worlds greatly reduces the risk "
-           "that they will collapse due to any crisis of merely planetary "
-           "scale."]}
+           "civilizations across various habitats throughout the $SYSTEM system "
+           "greatly reduces the risk that they will collapse due to any crisis "
+           "of merely planetary scale."]}
 
    {:name :quantum-computers
     :prereqs #{:networked-computers :quantum-physics}
@@ -315,16 +319,17 @@
            "computers, dramatically improving their collective ability to "
            "perform certain types of calculation."]}
 
-   {:name :FTL-communication
+   {:name :Mind-upload
     :prereqs #{:artificial-intelligence :quantum-computers}
-    :desc ["Through their investigations of quantum phenomena, the $CIV have "
-           "discovered a means of sending and receiving messages which travel "
-           "at speeds exceeding that of light itself."]}
+    :desc ["Through their investigations of artificial-intelligence combined "
+           "with the power of quantum-computers the $CIV have discovered "
+           "how to upload and transfer their minds into or between artifical"
+           "substraits."]}
 
-   {:name :FTL-travel
-    :prereqs #{:FTL-communication :space-colonization}
+   {:name :Interstellar-travel
+    :prereqs #{:Mind-upload :space-colonization}
     :set-vars {:state :pending-invite}
-    :desc ["The $CIV have successfully tested their first faster-than-light "
-           "starship. No longer are they trapped within the gravity well of "
-           "the $SYSTEM system: they are now free to take their place "
-           "alongside us as fellow wanderers among the stars."]}])
+    :desc ["The $CIV have successfully traversed the stars colonizing a "
+           "nearby star system. No longer are they trapped within the "
+           "the $SYSTEM system, they are now free to take their place "
+           "alongside us spreading intelligence among the stars."]}])
