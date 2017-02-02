@@ -107,10 +107,10 @@
              "$RELIGION" (gen-caps-word)
              "$SYSTEM" system}
      :tech-chance (/ 1 90)
-     :event-chances {:asteroid (/ +1 1000)
-                     :volcano (/ +1 1000)
+     :event-chances {:asteroid (/ +100 100000)
+                     :volcano (/ +100 100000)
                      :food-illness (/ +1 1000)
-                     :gamma-ray-burst (/ +1 3000)
+                     :gamma-ray-burst (/ +100 300000)
                      :pets (/ +1 1000)}
      :notification-pitch (rand-nth ["C4" "D4" "E4" "F4" "G4" "A4" "B4"
                                     "C5" "D5" "E5" "F5" "G5" "A5" "B5"])}))
